@@ -1,0 +1,43 @@
+ rem rem rem rem rem rem rem rem rem rem rem rem rem rem  유튜브 다운로드
+ py -m pip install --upgrade pip
+ pip install pytube
+
+ playlist =Playlist('https://www.youtube.com/watch?v=DN-Ur5reNpU&list=UU3zABYmTxp_MyEEvFmekrFQ&ab_channel=%EB%8B%8C%EC%A3%BC')
+
+ DOWNLOAD_FOLDER =
+ addressToDownload = "C:\\Users\\JungHoonPark\\Desktop\\videoes from youtube by pytube"
+ addressToDownload = r"C:\Users\JungHoonPark\Desktop\videoes from youtube by pytube"
+ videoURL ='https://www.youtube.com/watch?v=AbzNe6mrxyo&ab_channel=HeyNews'
+ videoURL='https://www.youtube.com/watch?v=sD9pB3W0DGc&ab_channel=JTBCEntertainment'
+ videoURL='https://www.youtube.com/watch?v=Gsbmo50GY7o&ab_channel=JTBCEntertainment'
+ videoURL='youtubeURL='https://www.youtube.com/watch?v=Gsbmo50GY7o&ab_channel=JTBCEntertainment'
+ videoesURL=''
+
+ _____________________ 단일 영상 저화질로 다운로드 (success) s
+ from pytube import YouTube
+ yt = YouTube(videoURL)
+ stream = yt.streams.get_highest_resolution()
+ stream.download(addressToDownload)
+ ____________________ 채널리스트 저화질로 다운로드 (partly success) s
+
+ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+ python get-pip.py
+ pip install pytube
+ ____________________ 채널리스트 다운로드 (success) s
+ from pytube import Playlist
+ playlist =Playlist(videoesURL)
+ print('Number of videos in playlist: %s' % len(playlist.video_urls))
+
+ # Loop through all videos in the playlist and download them
+ for video in playlist.videos:
+ try:
+ print(video.streams.filter(file_extension='mp4'))
+ stream = video.streams.get_by_itag(137) # 137 = 1080P30
+ stream.download()
+ except AttributeError:
+ stream = video.streams.get_by_itag(22) # 22, 136 = 720P30; if 22 still don't work, try 136
+ stream.download()
+ except:
+ print("Something went wrong.")
+
+ ____________________ 채널리스트 다운로드 (success) e
