@@ -85,7 +85,7 @@ print(sys.argv)
 print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>gTTS style3 s")
 text=sys.argv[1]
 
-text='테스트다 임마'
+# text='테스트'
 
 lang='ko'
 file_path = text+'.mp3'
