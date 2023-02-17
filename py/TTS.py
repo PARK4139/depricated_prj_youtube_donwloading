@@ -11,6 +11,7 @@ def cls():
 
 def chdir(path):
     os.chdir(path)
+    print(os.getcwd())
 
 def cwd():
     print(os.getcwd())
@@ -83,6 +84,8 @@ def endRecordCommand():
 print(sys.argv)
 print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>gTTS style3 s")
 text=sys.argv[1]
+
+
 lang='ko'
 file_path = text+'.mp3'
 gTTS_Mgr = gTTS(text=text, lang=lang )
@@ -95,6 +98,7 @@ if os.path.exists('/mp3'):
 else:
     mkdir('./mp3')
     chdir('./mp3')
+    
 if os.path.exists(file_path):
     os.startfile(file_path)
 else:
