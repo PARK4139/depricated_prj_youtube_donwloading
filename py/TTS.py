@@ -85,6 +85,7 @@ print(sys.argv)
 print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>gTTS style3 s")
 text=sys.argv[1]
 
+text='테스트다 임마'
 
 lang='ko'
 file_path = text+'.mp3'
@@ -103,8 +104,5 @@ if os.path.exists(file_path):
     os.startfile(file_path)
 else:
     gTTS_Mgr.save(file_path)
-    os.startfile(file_path)
-
-
-    
+    os.startfile(file_path)    
     
