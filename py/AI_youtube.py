@@ -1,6 +1,9 @@
+import traceback
+
 from moviepy.editor import *
 from pytube import Playlist, YouTube
 import sys
+
 
 # ____________________________________________________________________________________ 채널리스트로 다운로드[대기]
 
@@ -152,22 +155,26 @@ else:
 def ydown(url: str, prefix: str = "프리픽스"):
     yt = YouTube(url)
     vpath = (
-    yt.streams.filter(adaptive=True, file_extension="mp4", only_video=True)
-    .order_by("resolution")
-    .desc()
-    .first()
-    .download(output_path=fpath("video/"), filename_prefix=f"{prefix} ")
+        yt.streams.filter(adaptive=True, file_extension="mp4", only_video=True)
+        .order_by("resolution")
+        .desc()
+        .first()
+        .download(output_path=fpath("video/"), filename_prefix=f"{prefix} ")
     )
     apath = (
-    yt.streams.filter(adaptive=True, file_extension="mp4", only_audio=True)
-    .order_by("abr")
-    .desc()
-    .first()
-    .download(output_path=fpath("audio/"), filename_prefix=f"{prefix} ")
+        yt.streams.filter(adaptive=True, file_extension="mp4", only_audio=True)
+        .order_by("abr")
+        .desc()
+        .first()
+        .download(output_path=fpath("audio/"), filename_prefix=f"{prefix} ")
     )
-    v = VideoFileClip(vpath)
-    a = AudioFileClip(apath)
+    vfc = VideoFileClip(vpath)
+    afc = AudioFileClip(apath)
 
+    vfc.audio = afc
+    vfc.write_videofile("new video.mp4")
+
+    # close 함수를 이용해 비디오를 닫아줍니다.
 
 def playlistdown(url: str, prefix: str = ""):
     pl = Playlist(url)
@@ -181,8 +188,16 @@ def playlistdown(url: str, prefix: str = ""):
 
 
 # print(str(sys.argv[1]))
-
-
-for i in range(1,len(sys.argv)):
-    print(str(sys.argv[i]))
-    ydown(str(sys.argv[i]))
+try:
+    for i in range(1, len(sys.argv)):
+        print(str(sys.argv[i]))
+        ydown(str(sys.argv[i]) +'[TRIED_TO_DOWNLOAD]')
+except Exception as e:
+    print('______________________________________________________  error id 2023 02 18 16 28 s')
+    print('______________________________________________________  e info s')
+    print(e)
+    print('______________________________________________________  e info e')
+    print('______________________________________________________  trouble shooting info s')
+    traceback.print_exc(file=sys.stdout)
+    print('______________________________________________________  trouble shooting info e')
+    print('______________________________________________________  error id 2023 02 18 16 28 e')
